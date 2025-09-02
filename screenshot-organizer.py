@@ -20,6 +20,13 @@ for filename in os.listdir(source_folder):
         new_filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + os.path.splitext(filename)[1]
         new_path = os.path.join(destination_folder, new_filename)
         
+        # If file with same name exists, append a counter
+        counter = 1
+        while os.path.exists(new_path):
+            new_filename = dt.strftime("%Y-%m-%d_%H-%M-%S") + f"_{counter}" + os.path.splitext(filename)[1]
+            new_path = os.path.join(destination_folder, new_filename)
+            counter += 1
+
         # Move and rename file
         shutil.move(file_path, new_path)
         print(f"Moved: {filename} → {new_filename}")
